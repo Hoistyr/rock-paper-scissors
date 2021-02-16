@@ -4,76 +4,84 @@
     </head>
     <body>
        <script>
+           
            function computerPlay() {
                 let computerOptions = ["rock","paper","scissors"];
                 let computerChoice = Math.floor(Math.random() * computerOptions.length);
                 computerWeapon = computerOptions[computerChoice]
                 return computerWeapon;
            }
-           console.log(computerPlay());
 
-           function playRound(playerSelection, computerSelection) {
-                let playerScore = 0;
-                let compScore = 0;    
-
-                playerSelection = playerSelection.toLowerCase();
+           function playRound(playerSelection, computerSelection) { 
                 if (playerSelection == "rock") {
                     if (computerSelection == "paper") {
-                        compScore += 1;
-                        return "You Lose! Paper beats Rock!";
+                        return "compWin";
                     } else if (computerSelection == "scissors") {
-                        playerScore += 1;
-                        return "You Win! Rock beats Scissors!";
+                        return "playerWin";
                     } else (computerSelection == "rock")
-                        return "It's a tie! Rocks all around!";  
+                        return "tie"; 
 
                 } else if (playerSelection == "paper") {
                     if (computerSelection == "paper") {
-                        return "It's a tie! Paper all around!";
+                        return "tie";
                     } else if (computerSelection == "scissors") {
-                        compScore += 1;
-                        return "You Lose! Scissors beat Paper!";
+                        return "compWin";
                     } else (computerSelection == "rock")
-                        playerScore += 1;  
-                        return "You Win! Paper beats Rock!";           
+                        return "playerWin";         
                 
                 }  else if (playerSelection == "scissors") {
                     if (computerSelection == "paper") {
-                        playerScore += 1;
-                        return "You Win! Scissors beat Paper!";
+                        return "playerWin";
                     } else if (computerSelection == "scissors") {
-                        return "It's a tie! Snip Snip!";
+                        return "tie";
                     } else (computerSelection == "rock")
-                        compScore += 1;
-                        return "You Lose! Rock beats Scissors!";
+                        return "compWin";
                     }
-                console.log(playerScore);
            }
 
            
 
            function game () {
-            console.log("First part");
+            let playerScore = 0;
+            let compScore = 0;
+            let totalRounds = 1;
             
-            let totalRounds = 0;
-            console.log(totalRounds);
-            while (totalRounds < 5) {
-                let playerSelection = prompt("Choose rock, paper or scissors");
+            while (totalRounds <= 5) {
+                let playerSelection = prompt("Choose rock, paper, or scissors");
+                playerSelection = playerSelection.toLowerCase();
                 let computerSelection = computerPlay();
+                let outcome = playRound(playerSelection, computerSelection);
+
+                if (outcome == "playerWin") {
+                    playerScore++;
+                } else if (outcome == "compWin") {
+                    compScore++;
+                }
+                totalRounds++;
                 
-                
-                if (playerSelection != null || "") {
-                    playRound(playerSelection, computerSelection);
-                    console.log(totalRounds);
-                    totalRounds++;
-                    console.log("player:" + playerSelection);
-                    console.log("comp:" + computerSelection);
-                    playerScore = 
-                }   
+                console.log("\n")
+                console.log(`Round ${totalRounds - 1}:`)
+                console.log("---Choices---")
+                console.log("Player: " + playerSelection);
+                console.log("Computer: " + computerSelection);
+                console.log("---Scores---")
+                console.log("Player: " + playerScore);
+                console.log("Computer: " + compScore);
+                }
+            
+            console.log("\n")
+            console.log("---Game End---")
+            console.log("Calculating winner...\n")
+            if (playerScore > compScore) {
+                console.log ("Congrats, you beat the machines!")
+            } else if (compScore > playerScore) {
+                console.log("The machines have won, earth is lost...")
+            } else if (playerScore == compScore){
+                console.log("Neither side is victorious, but it still feels like a loss.")
+            } else {
+                console.log("Something went wrong")
             }
-            console.log(playerScore);
-            console.log(compScore); 
-            }
+            } 
 
     console.log(game());
        </script> 
