@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <head>
+
+    </head>
+    <body>
+       <script>
+           function computerPlay() {
+                let computerOptions = ["rock","paper","scissors"];
+                let computerChoice = Math.floor(Math.random() * computerOptions.length);
+                computerWeapon = computerOptions[computerChoice]
+                return computerWeapon;
+           }
+           console.log(computerPlay());
+
+           function playRound(playerSelection, computerSelection) {
+                playerSelection = playerSelection.toLowerCase();
+                if (playerSelection == "rock") {
+                    if (computerSelection == "paper") {
+                    return "You Lose! Paper beats Rock!";
+                    } else if (computerSelection == "scissors") {
+                    return "You Win! Rock beats Scissors!";
+                    } else (computerSelection == "rock") {
+                    return "It's a tie! Rocks all around!";
+                    }
+                } else if (playerSelection == "paper") {
+                    if computerSelection == "paper") {
+                    return "It's a tie! Paper all around!";
+                    } else if (computerSelection == "scissors") {
+                    return "You Lose! Scissors beat Paper!";
+                    } else (computerSelection == "rock") {
+                    return "You Win! Paper beats Rock!";
+                    }
+                }  else if (playerSelection == "scissors") {
+                    if (computerSelection == "paper") {
+                    return "You Win! Scissors beat Paper!";
+                    } else if (computerSelection == "scissors") {
+                    return "It's a tie! Snip Snip!";
+                    } else (computerSelection == "rock") {
+                    return "You Lose! Rock beats Scissors!";
+                    }
+           }
+/*
+           const playerSelection = "rock";
+           const computerSelection = computerPlay();
+           console.log(playRound(playerSelection, computerSelection));
+           */
+       </script> 
+    </body>
+
+</html>
