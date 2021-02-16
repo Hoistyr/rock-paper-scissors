@@ -13,37 +13,69 @@
            console.log(computerPlay());
 
            function playRound(playerSelection, computerSelection) {
+                let playerScore = 0;
+                let compScore = 0;    
+
                 playerSelection = playerSelection.toLowerCase();
                 if (playerSelection == "rock") {
                     if (computerSelection == "paper") {
-                    return "You Lose! Paper beats Rock!";
+                        compScore += 1;
+                        return "You Lose! Paper beats Rock!";
                     } else if (computerSelection == "scissors") {
-                    return "You Win! Rock beats Scissors!";
-                    } else (computerSelection == "rock") {
-                    return "It's a tie! Rocks all around!";
-                    }
+                        playerScore += 1;
+                        return "You Win! Rock beats Scissors!";
+                    } else (computerSelection == "rock")
+                        return "It's a tie! Rocks all around!";  
+
                 } else if (playerSelection == "paper") {
-                    if computerSelection == "paper") {
-                    return "It's a tie! Paper all around!";
+                    if (computerSelection == "paper") {
+                        return "It's a tie! Paper all around!";
                     } else if (computerSelection == "scissors") {
-                    return "You Lose! Scissors beat Paper!";
-                    } else (computerSelection == "rock") {
-                    return "You Win! Paper beats Rock!";
-                    }
+                        compScore += 1;
+                        return "You Lose! Scissors beat Paper!";
+                    } else (computerSelection == "rock")
+                        playerScore += 1;  
+                        return "You Win! Paper beats Rock!";           
+                
                 }  else if (playerSelection == "scissors") {
                     if (computerSelection == "paper") {
-                    return "You Win! Scissors beat Paper!";
+                        playerScore += 1;
+                        return "You Win! Scissors beat Paper!";
                     } else if (computerSelection == "scissors") {
-                    return "It's a tie! Snip Snip!";
-                    } else (computerSelection == "rock") {
-                    return "You Lose! Rock beats Scissors!";
+                        return "It's a tie! Snip Snip!";
+                    } else (computerSelection == "rock")
+                        compScore += 1;
+                        return "You Lose! Rock beats Scissors!";
                     }
+                console.log(playerScore);
            }
-/*
-           const playerSelection = "rock";
-           const computerSelection = computerPlay();
-           console.log(playRound(playerSelection, computerSelection));
-           */
+
+           
+
+           function game () {
+            console.log("First part");
+            
+            let totalRounds = 0;
+            console.log(totalRounds);
+            while (totalRounds < 5) {
+                let playerSelection = prompt("Choose rock, paper or scissors");
+                let computerSelection = computerPlay();
+                
+                
+                if (playerSelection != null || "") {
+                    playRound(playerSelection, computerSelection);
+                    console.log(totalRounds);
+                    totalRounds++;
+                    console.log("player:" + playerSelection);
+                    console.log("comp:" + computerSelection);
+                    playerScore = 
+                }   
+            }
+            console.log(playerScore);
+            console.log(compScore); 
+            }
+
+    console.log(game());
        </script> 
     </body>
 
