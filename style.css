@@ -1,0 +1,56 @@
+html {
+    background-color:rgb(100, 124, 230) ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Lexend Mega', sans-serif;  
+}
+#pageContent {
+    margin-top: 50px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#headerTitle {
+    color: white;
+    
+}
+
+#startDiv {
+    border-color: transparent;
+    border-style: solid;
+    border-radius: 20px;
+    padding: 12px;
+    background: rgba(25, 88, 129, 0.692);
+    transition-duration: 0.3s;
+    box-sizing: border-box;
+}
+
+#startDiv:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.13);
+}
+
+#startDiv:active {
+    transition-duration: 0.01s;
+    transform: scale(90%);
+}
+
+#startButton {
+    background-color: transparent;
+    border-style: none;
+    font-size: 50px;
+    color: black;
+    scrollbar-highlight-color: transparent;
+    cursor: pointer;
+}
+
+.image {
+    margin: 10px;
+    cursor: pointer;
+    transition-duration: 0.1s;
+}
+
+.image:hover {
+    transform: scale(150%)
+}

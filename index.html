@@ -1,9 +1,182 @@
 <!DOCTYPE html>
     <head>
-
+            <title>Rock Paper Scissors</title>
+            <link rel="stylesheet" href="style.css"> 
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&display=swap" rel="stylesheet"> 
     </head>
     <body>
+       
+       <div id="pageContent">
+            <div id="title">
+                <h1 id="headerTitle">Rock, Paper, Scissors</h1>
+            </div>
+
+            <div id="startDiv">
+                <button id="startButton">Start Game</button>
+            </div>
+
+            <!--
+                1. When button is clicked, the page loads the game
+                1a. The images of the items
+                1b. The scoring 
+                -need to detect click on button
+                -need to add animation of the button getting clicked/hovered over
+                
+                2. Detect when the player clicks on an image
+                3. Generate a computer choice
+                4. Update scoring
+            -->
+<!----add to
+            <div id="selectText">
+                <h2 id="headerSelectText">Select your weapon:</h2>
+            </div>
+            <div id="images">
+                <img id="rockImage" src="images/rock.png" alt="Picture of a rock">
+                <img id="paperImage" src="images/paper.png" alt="Picture of paper">
+                <img id ="scissorsImage" src="images/scissors.png" alt="Picture of scissors">  
+            </div>
+            <div id="scoring">
+                <div id="scoreText">
+                    <h2>Current Score:</h2>
+                </div>
+            </div>
+        ---> 
+
+       </div>
+       
        <script>
+           function testAlert (){
+               alert('test');
+           }
+
+           document.getElementById("startButton").onclick = gameStart;
+        
+           function gameStart () {
+                let alreadyClicked = document.getElementById("selectText"); 
+                if (alreadyClicked === null) {
+                    
+                    addSelectText();
+                    addImages();
+                    appendScores();
+                    addRound();
+                    deleteButton();
+                    
+                    game();
+                    
+                    
+                    
+                    
+
+                } else {
+                    console.log('fail');
+                }
+            }
+
+            function setRock () {
+                let playerSelection = "rock";
+                return playerSelection;
+                 
+            }
+            
+            function setPaper () {
+                let playerSelection = "paper";
+                console.log('paper was picked');
+                return playerSelection;
+                
+            }
+
+            function setScissors () {
+                let playerSelection = "scissors";
+                console.log('scissors was picked');
+                return playerSelection;
+                
+            }
+            
+            function addSelectText () {
+                const selectText = document.createElement('div');
+                    selectText.id = "selectText";
+                    pageContent.appendChild(selectText);
+                    const headerSelectText = document.createElement('h2');
+                    headerSelectText.textContent = "Select your weapon:";
+                    pageContent.appendChild(headerSelectText);
+            }    
+            
+            function addImages() {
+                const images = document.createElement('div');
+                images.id = "images";
+                pageContent.appendChild(images);
+
+                const rockImage = document.createElement('img');
+                rockImage.id = "rockImage";
+                rockImage.src="images/rock.png";
+                rockImage.className="image"
+                images.appendChild(rockImage);
+
+                const paperImage = document.createElement('img');
+                paperImage.id = "paperImage";
+                paperImage.src="images/paper.png";
+                paperImage.className="image"
+                images.appendChild(paperImage);
+
+                const scissorsImage = document.createElement('img');
+                scissorsImage.id = "scissorsImage";
+                scissorsImage.src="images/scissors.png";
+                scissorsImage.className="image"
+                images.appendChild(scissorsImage);
+            }
+           
+           function appendScores () {
+                const scoreText = document.createElement('div');
+                scoreText.id = "scoreText";
+                pageContent.appendChild(scoreText);
+                const headerScoreText = document.createElement('h2');
+                headerScoreText.textContent = "The current score is:";
+                pageContent.appendChild(headerScoreText);
+           }
+
+           function addRound(totalRounds) {
+                const roundCount = document.createElement('div');
+                roundCount.id = "roundCount";
+                pageContent.appendChild(roundCount);
+                const currentRound = document.createElement('h2');
+                currentRound.id = "currentRound";
+                currentRound.textContent = `Round ${totalRounds}`;
+                
+           }
+           
+            function playerChoice (playerSelection) {
+                
+                let decisionMade = false;
+                
+                while (decisionMade === false) {
+                console.log('are we here in playerChoice?'); 
+                
+            
+
+                document.getElementById("rockImage").onclick = setRock;
+                
+                
+                document.getElementById("paperImage").onclick = setPaper;
+                
+                document.getElementById("scissorsImage").onclick = setScissors;
+                
+
+                decisionMade === true;
+                return playerSelection;
+                }
+                console.log('see ya later');
+                
+                
+            }   
+                  
+        
+
+           function deleteButton() {
+               let deleteMe = document.getElementById("startDiv");
+               deleteMe.remove();
+               console.log('delete button');
+           }
            
            function computerPlay() {
                 let computerOptions = ["rock","paper","scissors"];
@@ -13,6 +186,7 @@
            }
 
            function playRound(playerSelection, computerSelection) { 
+                console.log('started playRound');
                 if (playerSelection == "rock") {
                     if (computerSelection == "paper") {
                         return "compWin";
@@ -46,21 +220,29 @@
             let compScore = 0;
             let totalRounds = 1;
             
-            while (totalRounds <= 5) {
-                let playerSelection = prompt("Choose rock, paper, or scissors");
+            
+            for (totalRounds = 1; totalRounds <= 5; totalRounds++) {
+
+                
+                console.log("loop");
+
+                let playerSelection = playerChoice();
                 playerSelection = playerSelection.toLowerCase();
                 let computerSelection = computerPlay();
                 let outcome = playRound(playerSelection, computerSelection);
+                
+                
 
                 if (outcome == "playerWin") {
                     playerScore++;
                 } else if (outcome == "compWin") {
                     compScore++;
                 }
-                totalRounds++;
+
+                
                 
                 console.log("\n")
-                console.log(`Round ${totalRounds - 1}:`)
+                console.log(`Round ${totalRounds}:`)
                 console.log("---Choices---")
                 console.log("Player: " + playerSelection);
                 console.log("Computer: " + computerSelection);
@@ -83,7 +265,6 @@
             }
             } 
 
-    console.log(game());
        </script> 
     </body>
 
