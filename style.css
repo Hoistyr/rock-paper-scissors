@@ -3,7 +3,8 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: 'Lexend Mega', sans-serif;  
+    font-family: 'Lexend Mega', sans-serif; 
+    box-sizing: border-box; 
 }
 #pageContent {
     margin-top: 50px;
@@ -49,8 +50,45 @@ html {
     margin: 10px;
     cursor: pointer;
     transition-duration: 0.1s;
+    border: transparent;
+    border-style: solid;
 }
 
 .image:hover {
     transform: scale(150%)
+}
+
+#scoreNumbers {
+    display: flex;
+    flex-direction: row;
+    column-gap: 150px;
+    align-items: center;
+    justify-content: center;
+}
+
+.computerWeapon {
+    border-top: rgb(130, 29, 177);
+    border-top-style: solid;
+    transition-duration: 0.5s;
+}
+
+#compScoreText {
+    color: rgb(130, 29, 177);
+}
+
+.playerWeapon {
+    border-bottom: rgb(59, 165, 67);
+    border-bottom-style: solid;
+    transition-duration: 0.5s;
+}
+
+#playerScoreText {
+    color: rgb(59, 165, 67);
+}
+
+.winningWeapon {
+    border-right: gold;
+    border-right-style: dotted;
+    border-left: gold;
+    border-left-style: dotted ;
 }
