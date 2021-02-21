@@ -7,7 +7,6 @@ function loadStart () {
         addImages();
         appendScores();
         deleteButton();
-        
         beginGame();
     } else {
         console.log('fail');
@@ -21,8 +20,9 @@ function addSelectText () {
         selectText.id = "selectText";
         pageContent.appendChild(selectText);
         const headerSelectText = document.createElement('h2');
+        headerSelectText.id = "headerSelectText";
         headerSelectText.textContent = "Select your weapon:";
-        pageContent.appendChild(headerSelectText);
+        selectText.appendChild(headerSelectText);
 }    
 
 function addImages() {
@@ -90,7 +90,6 @@ function computerPlay() {
     } else if (computerWeapon === "scissors") {
         scissorsImage.classList.add('image', 'computerWeapon');
     }
-    console.log(computerWeapon);
     return computerWeapon;
 }
 
@@ -104,19 +103,21 @@ function beginGame () {
     images.addEventListener('click', event => {
         let eventData = event;
         imageClicked(eventData);
-        window.setTimeout(removeCwClass, 2500);
         
     });
 
     
     //removes computer choicie stylings
     function removeCwClass () {
-        rockImage.classList.remove('computerWeapon');
-        paperImage.classList.remove('computerWeapon');
-        scissorsImage.classList.remove('computerWeapon');
-        rockImage.classList.remove('playerWeapon');
-        paperImage.classList.remove('playerWeapon');
-        scissorsImage.classList.remove('playerWeapon');
+        let rockCheck = document.getElementById('rockImage');
+        if (rockCheck !== null) {
+            rockImage.classList.remove('computerWeapon');
+            paperImage.classList.remove('computerWeapon');
+            scissorsImage.classList.remove('computerWeapon');
+            rockImage.classList.remove('playerWeapon');
+            paperImage.classList.remove('playerWeapon');
+            scissorsImage.classList.remove('playerWeapon');
+        }
     }
 
     //Takes the image click information and plays a round using the image clicked
@@ -127,15 +128,10 @@ function beginGame () {
                 let playerSelection = "rock";
                 rockImage.classList.add('image','playerWeapon');
                 outcome = playRound(playerSelection, computerPlay());
-                //Add winning styling
-                if (outcome === "playWin") {
-                    rockImage.classList.add('image','playerWeapon','winningWeapon');
-                } else if (outcome === "compWin") {
-                    rockImage.classList.add('image','winningWeapon');
-                }
                 
                 if (playerScore != 5 && compScore != 5) {
                     whoWon(outcome);
+                    
                 }
 
             } else if (clickInformation.target.alt === "paper") {
@@ -143,15 +139,9 @@ function beginGame () {
                 paperImage.classList.add('image','playerWeapon');
                 outcome = playRound(playerSelection, computerPlay());
 
-                //Add winning styling
-                if (outcome === "playWin") {
-                    paperImage.classList.add('image','winningWeapon');
-                } else if (outcome === "compWin") {
-                    paperImage.classList.add('image','winningWeapon');
-                }
-
                 if (playerScore != 5 && compScore != 5) {
                     whoWon(outcome);
+                    
                 }
                 
             } else if (clickInformation.target.alt === "scissors") {
@@ -159,15 +149,9 @@ function beginGame () {
                 scissorsImage.classList.add('image','playerWeapon');
                 outcome = playRound(playerSelection, computerPlay());
 
-                //Add winning styling
-                if (outcome === "playWin") {
-                    scissorsImage.classList.add('image','winningWeapon');
-                } else if (outcome === "compWin") {
-                    scissorsImage.classList.add('image','winningWeapon');
-                }
-
                 if (playerScore != 5 && compScore != 5) {
                     whoWon(outcome);
+                    
                 }
             }
         }
@@ -176,18 +160,26 @@ function beginGame () {
     
     //Adds points depending upon who won the round
     function whoWon(outcome) {
+        let rockCheck = document.getElementsByName('rockImage');
         if (outcome == "playerWin") {
             playerScore++;
             playerScoreText.textContent = `Player:  ${playerScore}`;
-            console.log(outcome);
             scoring(playerScore, compScore);
+            if (rockCheck != null) {
+                window.setTimeout(removeCwClass, 1500);
+            } 
+            
         } else if (outcome == "compWin") {
             compScore++; 
             compScoreText.textContent = `Computer:  ${compScore}`;
-            console.log(outcome);
             scoring(playerScore, compScore);
+            if (rockCheck != null) {
+                window.setTimeout(removeCwClass, 1500);
+            } 
         } else if (outcome == "tie") {
-            console.log(outcome);
+            if (rockCheck != null) {
+                window.setTimeout(removeCwClass, 1500);
+            } 
         }
     }
 }
@@ -208,6 +200,89 @@ function scoring(playerScore, compScore) {
     
 }
 
+//Capitalizes the first letter
+function capitalize(toCap)  {  
+    let capitalLetter = toCap.toUpperCase();
+    capitalLetter = capitalLetter.slice(0,1);
+    
+    let lowerLetter = toCap.toLowerCase();
+    lowerLetter = toCap.slice(1);
+    
+    properCap = capitalLetter.concat(lowerLetter);
+    return properCap;
+}
+
+//Outputs the winner of the round to the screen
+function roundWinner (playerSelection, computerSelection, victor) {
+    let doesExist = checkForRoundScore();
+    if (doesExist = "doesExist") {
+        if (victor == "tie") {
+            roundOutcome.textContent = `It's a tie, you both chose ${playerSelection}.`;
+            roundPlayerChoice.textContent = `Player choice: ${capitalize(playerSelection)}`;
+            roundComputerChoice.textContent = `Computer choice: ${capitalize(computerSelection)}`;
+        } else if (victor == "compWin") {
+            if (playerSelection == "rock" && computerSelection =="paper")  {
+                roundOutcome.textContent = `The computer wins. ${capitalize(computerSelection)} beats ${playerSelection}.`;
+                roundPlayerChoice.textContent = `Player choice: ${capitalize(playerSelection)}`;
+                roundComputerChoice.textContent = `Computer choice: ${capitalize(computerSelection)}`;
+            } else if (playerSelection == "paper" && computerSelection == "scissors") {
+                roundOutcome.textContent = `The computer wins. ${capitalize(computerSelection)} beat ${playerSelection}.`; 
+                roundPlayerChoice.textContent = `Player choice: ${capitalize(playerSelection)}`;
+                roundComputerChoice.textContent = `Computer choice: ${capitalize(computerSelection)}`;
+            } else if (playerSelection == "scissors" && computerSelection == "rock") {
+                    roundOutcome.textContent = `The computer wins. ${capitalize(computerSelection)} beats ${playerSelection}.`;
+                    roundPlayerChoice.textContent = `Player choice: ${capitalize(playerSelection)}`;
+                    roundComputerChoice.textContent = `Computer choice: ${capitalize(computerSelection)}`;
+            }
+        } else if (victor == "playerWin") {
+            if (playerSelection == "rock" && computerSelection =="scissors")  {
+                roundOutcome.textContent = `You win! ${capitalize(playerSelection)} beats ${computerSelection}.`;
+                roundPlayerChoice.textContent = `Player choice: ${capitalize(playerSelection)}`;
+                roundComputerChoice.textContent = `Computer choice: ${capitalize(computerSelection)}`;
+            } else if (playerSelection == "paper" && computerSelection == "rock") {
+                roundOutcome.textContent = `You win! ${capitalize(playerSelection)} beats ${computerSelection}.`;
+                roundPlayerChoice.textContent = `Player choice: ${capitalize(playerSelection)}`;
+                roundComputerChoice.textContent = `Computer choice: ${capitalize(computerSelection)}`;
+            } else if (playerSelection == "scissors" && computerSelection == "paper") {
+                    roundOutcome.textContent = `You win! ${capitalize(playerSelection)} beat ${computerSelection}.`;
+                    roundPlayerChoice.textContent = `Player choice: ${capitalize(playerSelection)}`;
+                    roundComputerChoice.textContent = `Computer choice: ${capitalize(computerSelection)}`;
+            }
+        }
+    }
+}
+
+//Checks to see if the round scoring content exists and adds the div if it doesn't
+function checkForRoundScore () {
+    let locateRound = document.getElementById('roundOutcome');
+    if (locateRound === null) {
+        const outcomeHolder = document.createElement('div');
+        outcomeHolder.id = "outcomeHolder";
+        pageContent.appendChild(outcomeHolder);  
+        
+        let roundOutcome = document.createElement('h2');
+        roundOutcome.id = 'roundOutcome';
+        roundOutcome.textContent = "Test1";
+        outcomeHolder.appendChild(roundOutcome);
+
+        let roundPlayerChoice = document.createElement('h2');
+        roundPlayerChoice.id = 'roundPlayerChoice';
+        roundPlayerChoice.className = 'choiceText';
+        roundPlayerChoice.textContent = "Player choice:";
+        outcomeHolder.appendChild(roundPlayerChoice);
+
+        let roundComputerChoice = document.createElement('h2');
+        roundComputerChoice.id = 'roundComputerChoice';
+        roundComputerChoice.className = 'choiceText';
+        roundComputerChoice.textContent = "Computer choice:";
+        outcomeHolder.appendChild(roundComputerChoice);  
+
+    }  else if (locateRound !== null) {
+        let doesExist = "doesExist";
+        return doesExist;
+    }
+}
+
 //Determines who the victor is and executes the corresponding function
 function gameEnd(victor) {
     
@@ -218,40 +293,120 @@ function gameEnd(victor) {
     }
 } 
 
+//Executes if the player wins
 function playerVictory() {
-    alert('player')
+    deleteGame();
+    createEndText ();
+    endText.textContent = "Congratulations, you have beaten the machines!"
+    createPlayAgain();
 }  
 
+//Executes if the computer wins
 function computerVictory() {
-    alert('computer')
-} 
+    deleteGame();
+    createEndText ();
+    endText.textContent = "The machines have won, the earth is lost..."
+    createPlayAgain();
+}
+
+//Creates the text that indicates the winner of the game
+function createEndText () {
+    const endTextHolder = document.createElement('div');
+    endTextHolder.id = "endTextHolder";
+    pageContent.appendChild(endTextHolder);
+
+    const endText = document.createElement('h1');
+    endText.id = "endText";
+    endTextHolder.appendChild(endText);
+}
+
+//Removes page content at the end of the game
+function deleteGame() {
+    let deleteMe = document.getElementById("images");
+    deleteMe.remove();
+    
+    deleteMe = document.getElementById("selectText");
+    deleteMe.remove();
+    
+    deleteMe = document.getElementById("outcomeHolder");
+    deleteMe.remove();
+
+}
+
+//Creates the play again button
+function createPlayAgain () {
+    const playAgainHolder = document.createElement('div');
+    playAgainHolder.id  = "playAgainHolder";
+    playAgainHolder.className = "buttonStyle";
+    pageContent.appendChild(playAgainHolder);
+
+    const playAgainButton = document.createElement('button');
+    playAgainButton.id = "playAgainButton";
+    playAgainButton.className = "button";
+    playAgainButton.textContent = "Play Again?"
+    playAgainHolder.appendChild(playAgainButton);
+
+    document.getElementById("playAgainButton").onclick = playAgain;
+}
+
+
+
+function playAgain () {
+    resetPage();
+}
+
+function resetPage() {
+    let deleteMe = document.getElementById("scoreArea");
+    deleteMe.remove();
+
+    deleteMe = document.getElementById("endTextHolder");
+    deleteMe.remove();
+
+    deleteMe = document.getElementById("playAgainHolder");
+    deleteMe.remove();
+
+    const startDiv = document.createElement('div');
+    startDiv.id = "startDiv";
+    startDiv.className = "buttonStyle";
+    pageContent.appendChild(startDiv);
+
+    loadStart();
+}
 
 //Plays a round
 function playRound(playerSelection, computerSelection) { 
-    console.log('started playRound');
-    
     if (playerSelection == "rock") {
         if (computerSelection == "paper") {
+            roundWinner(playerSelection, computerSelection, "compWin");
             return "compWin";
+            
         } else if (computerSelection == "scissors") {
+            roundWinner(playerSelection, computerSelection, "playerWin");
             return "playerWin";
         } else (computerSelection == "rock")
+            roundWinner(playerSelection, computerSelection, "tie");    
             return "tie"; 
 
     } else if (playerSelection == "paper") {
         if (computerSelection == "paper") {
+            roundWinner(playerSelection, computerSelection, "tie");
             return "tie";
         } else if (computerSelection == "scissors") {
+            roundWinner(playerSelection, computerSelection, "compWin");
             return "compWin";
         } else (computerSelection == "rock")
+            roundWinner(playerSelection, computerSelection, "playerWin");    
             return "playerWin";         
     
     }  else if (playerSelection == "scissors") {
         if (computerSelection == "paper") {
+            roundWinner(playerSelection, computerSelection, "playerWin");
             return "playerWin";
         } else if (computerSelection == "scissors") {
+            roundWinner(playerSelection, computerSelection, "tie");
             return "tie";
         } else (computerSelection == "rock")
+            roundWinner(playerSelection, computerSelection, "compWin");    
             return "compWin";
         }
 }

@@ -18,7 +18,7 @@ html {
     
 }
 
-#startDiv {
+.buttonStyle {
     border-color: transparent;
     border-style: solid;
     border-radius: 20px;
@@ -37,12 +37,11 @@ html {
     transform: scale(90%);
 }
 
-#startButton {
+.button {
     background-color: transparent;
     border-style: none;
     font-size: 50px;
     color: black;
-    scrollbar-highlight-color: transparent;
     cursor: pointer;
 }
 
@@ -69,7 +68,7 @@ html {
 .computerWeapon {
     border-top: rgb(130, 29, 177);
     border-top-style: solid;
-    transition-duration: 0.5s;
+    transition-duration: all 0.5s ease;
 }
 
 #compScoreText {
@@ -79,16 +78,38 @@ html {
 .playerWeapon {
     border-bottom: rgb(59, 165, 67);
     border-bottom-style: solid;
-    transition-duration: 0.5s;
+    transition-duration: all 0.5s ease;
 }
 
 #playerScoreText {
     color: rgb(59, 165, 67);
 }
 
-.winningWeapon {
-    border-right: gold;
-    border-right-style: dotted;
-    border-left: gold;
-    border-left-style: dotted ;
+#endTextHolder {
+    display: flex;
+}
+
+#endText {
+    color: white;
+    text-align: center;
+    
+}
+
+#outcomeHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.choiceText {
+    text-align: left;
+}
+
+#roundPlayerChoice {
+    color: rgb(59, 165, 67);
+}
+
+#roundComputerChoice {
+    color: rgb(130, 29, 177);
 }
